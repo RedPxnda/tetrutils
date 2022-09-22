@@ -8,7 +8,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 public class ClientEvents {
     @SubscribeEvent
-    public static void onMouseInput(final InputEvent.MouseInputEvent event) {
+    public static void onMouseInput(InputEvent.MouseInputEvent event) {
         System.out.println("mouse moved");
 //        if (true)
 //            event.setCanceled(true);

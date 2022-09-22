@@ -4,7 +4,6 @@ import com.mojang.logging.LogUtils;
 import com.redpxnda.tetrutils.client.ClientEvents;
 import com.redpxnda.tetrutils.effects.AntiKBEffect;
 import com.redpxnda.tetrutils.effects.FreezingEffect;
-import com.redpxnda.tetrutils.effects.potion.FreezingPotionEffectEvents;
 import com.redpxnda.tetrutils.effects.potion.PotionEffects;
 import com.redpxnda.tetrutils.schematic.requirement.AdvancementRequirement;
 import net.minecraft.world.level.block.Block;
@@ -48,7 +47,6 @@ public class Tetrutils {
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new FreezingEffect());
-        MinecraftForge.EVENT_BUS.register(new FreezingPotionEffectEvents());
         MinecraftForge.EVENT_BUS.register(new AntiKBEffect());
 
         DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> {

@@ -28,7 +28,7 @@ public class AntiKBEffect {
 
                 int level = item.getEffectLevel(heldStack, antikb);
                 if (level > 0) {
-                    defender.addEffect(new MobEffectInstance(AntiKBPotionEffect.instance, 30, level, false, false, false));
+                    defender.addEffect(new MobEffectInstance(AntiKBPotionEffect.instance, 2, level, false, false, false));
                 }
             }
         }
