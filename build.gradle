@@ -1,7 +1,22 @@
-plugins {
-    id 'net.minecraftforge.gradle' version '5.1.+'
+//plugins {
+//    id 'net.minecraftforge.gradle' version '5.1.+'
+//}
+buildscript {
+    repositories {
+        // These repositories are only for Gradle plugins, put any other repositories in the repository block further below
+        maven { url = 'https://maven.minecraftforge.net' }
+        mavenCentral()
+    }
+    dependencies {
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+        classpath 'org.spongepowered:mixingradle:0.7.+'
+    }
 }
-
+apply plugin: 'net.minecraftforge.gradle'
+// Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
+apply plugin: 'org.spongepowered.mixin'
+apply plugin: 'eclipse'
+apply plugin: 'maven-publish'
 
 group = 'com.redpxnda'
 version = '1.0-SNAPSHOT'
@@ -122,12 +137,14 @@ repositories {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.18.2-40.1.80'
+    minecraft 'net.minecraftforge:forge:1.18.2-40.1.0'
 
     implementation fg.deobf("curse.maven:tetra-289712:3844400")
     implementation fg.deobf("curse.maven:mutil-351914:3788376")
 
-    runtimeOnly(fg.deobf("curse.maven:Jei-238222:3940240"))
+    //runtimeOnly(fg.deobf("curse.maven:Jei-238222:3940240"))
+
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 }
 
 // Example for how to get properties into the manifest for reading at runtime.

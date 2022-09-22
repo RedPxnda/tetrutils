@@ -1,11 +1,20 @@
 package com.redpxnda.tetrutils;
 
 import com.mojang.logging.LogUtils;
+import com.redpxnda.tetrutils.client.ClientEvents;
+import com.redpxnda.tetrutils.effects.AntiKBEffect;
+import com.redpxnda.tetrutils.effects.FreezingEffect;
+import com.redpxnda.tetrutils.effects.potion.FreezingPotionEffectEvents;
+import com.redpxnda.tetrutils.effects.potion.PotionEffects;
+import com.redpxnda.tetrutils.schematic.requirement.AdvancementRequirement;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -27,6 +36,7 @@ public class Tetrutils {
     public static final String MOD_ID = "tetrutils";
 
     public Tetrutils() {
+        IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
         // Register the setup method for modloading
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         // Register the enqueueIMC method for modloading
@@ -34,10 +44,19 @@ public class Tetrutils {
         // Register the processIMC method for modloading
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
 
+        PotionEffects.register(eventBus);
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
+        MinecraftForge.EVENT_BUS.register(new FreezingEffect());
+        MinecraftForge.EVENT_BUS.register(new FreezingPotionEffectEvents());
+        MinecraftForge.EVENT_BUS.register(new AntiKBEffect());
 
-        //CraftingRequirementDeserializer
+        DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> {
+            MinecraftForge.EVENT_BUS.register(new ClientEvents());
+            FMLJavaModLoadingContext.get().getModEventBus().register(new ClientEvents());
+        });
+
+        CraftingRequirementDeserializer.registerSupplier("tetrutils:advancement", AdvancementRequirement.class);
     }
 
     private void setup(final FMLCommonSetupEvent event) {
