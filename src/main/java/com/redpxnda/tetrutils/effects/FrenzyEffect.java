@@ -1,32 +1,27 @@
 package com.redpxnda.tetrutils.effects;
 
-import com.redpxnda.tetrutils.effects.potion.AntiKBPotionEffect;
 import com.redpxnda.tetrutils.effects.potion.FreezingPotionEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.event.entity.living.LivingAttackEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import se.mickelus.tetra.effect.ItemEffect;
 import se.mickelus.tetra.items.modular.ModularItem;
 
-public class AntiKBEffect {
-    private static final ItemEffect antikb = ItemEffect.get("tetrutils:kb_reduction");
+public class FrenzyEffect {
+    private static final ItemEffect frenzy = ItemEffect.get("tetrutils:frenzy");
 
-    @SubscribeEvent
-    public void onLivingDamage(LivingHurtEvent event) {
+    public void onLivingDamage(LivingDamageEvent event) {
         LivingEntity defender = event.getEntityLiving();
         Entity eAttacker = event.getSource().getEntity();
         if (eAttacker instanceof LivingEntity attacker) {
             ItemStack heldStack = attacker.getMainHandItem();
-
             if (heldStack.getItem() instanceof ModularItem item) {
-
-                int level = item.getEffectLevel(heldStack, antikb);
+                int level = item.getEffectLevel(heldStack, frenzy);
                 if (level > 0) {
-                    defender.addEffect(new MobEffectInstance(AntiKBPotionEffect.instance, 2, level, false, false, false));
+                    float damage = event.getAmount();
+                    event.setAmount(damage + level);
                 }
             }
         }

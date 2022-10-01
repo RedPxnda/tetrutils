@@ -1,25 +1,18 @@
 package com.redpxnda.tetrutils;
 
 import com.mojang.logging.LogUtils;
-import com.redpxnda.tetrutils.client.ClientEvents;
 import com.redpxnda.tetrutils.effects.AntiKBEffect;
 import com.redpxnda.tetrutils.effects.FreezingEffect;
+import com.redpxnda.tetrutils.effects.FrenzyEffect;
 import com.redpxnda.tetrutils.effects.potion.PotionEffects;
+import com.redpxnda.tetrutils.packet.Packets;
 import com.redpxnda.tetrutils.schematic.requirement.AdvancementRequirement;
-import net.minecraft.world.level.block.Block;
+import com.redpxnda.tetrutils.schematic.requirement.CurioRequirement;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
-import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
-import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
 
@@ -39,60 +32,23 @@ public class Tetrutils {
         // Register the setup method for modloading
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         // Register the enqueueIMC method for modloading
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
-        // Register the processIMC method for modloading
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
-
         PotionEffects.register(eventBus);
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
+        MinecraftForge.EVENT_BUS.register(new AchievementDataSyncEvents());
         MinecraftForge.EVENT_BUS.register(new FreezingEffect());
         MinecraftForge.EVENT_BUS.register(new AntiKBEffect());
-
-        DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> {
-            MinecraftForge.EVENT_BUS.register(new ClientEvents());
-            FMLJavaModLoadingContext.get().getModEventBus().register(new ClientEvents());
-        });
+        MinecraftForge.EVENT_BUS.register(new FrenzyEffect());
 
         CraftingRequirementDeserializer.registerSupplier("tetrutils:advancement", AdvancementRequirement.class);
+        CraftingRequirementDeserializer.registerSupplier("tetrutils:curio", CurioRequirement.class);
     }
 
     private void setup(final FMLCommonSetupEvent event) {
         // Some preinit code
         LOGGER.info("HELLO FROM PREINIT");
         LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
-    }
 
-    private void enqueueIMC(final InterModEnqueueEvent event) {
-        // Some example code to dispatch IMC to another mod
-        InterModComms.sendTo(MOD_ID, "helloworld", () -> {
-            LOGGER.info("Hello world from the MDK");
-            return "Hello world";
-        });
-    }
-
-    private void processIMC(final InterModProcessEvent event) {
-        // Some example code to receive and process InterModComms from other mods
-        LOGGER.info("Got IMC {}", event.getIMCStream().
-                map(m -> m.messageSupplier().get()).
-                collect(Collectors.toList()));
-    }
-
-    // You can use SubscribeEvent and let the Event Bus discover methods to call
-    @SubscribeEvent
-    public void onServerStarting(ServerStartingEvent event) {
-        // Do something when the server starts
-        LOGGER.info("HELLO from server starting");
-    }
-
-    // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
-    // Event bus for receiving Registry Events)
-    @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
-    public static class RegistryEvents {
-        @SubscribeEvent
-        public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent) {
-            // Register a new block here
-            LOGGER.info("HELLO from Register Block");
-        }
+        event.enqueueWork(Packets::init);
     }
 }

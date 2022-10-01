@@ -5,14 +5,17 @@ buildscript {
     repositories {
         // These repositories are only for Gradle plugins, put any other repositories in the repository block further below
         maven { url = 'https://maven.minecraftforge.net' }
+        maven { url = 'https://maven.parchmentmc.org' }
         mavenCentral()
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+        classpath 'org.parchmentmc:librarian:1.+'
         classpath 'org.spongepowered:mixingradle:0.7.+'
     }
 }
 apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'org.parchmentmc.librarian.forgegradle'
 // Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 apply plugin: 'org.spongepowered.mixin'
 apply plugin: 'eclipse'
@@ -40,7 +43,7 @@ minecraft {
     //
     // Use non-default mappings at your own risk. They may not always work.
     // Simply re-run your setup task after changing the mappings to update your workspace.
-    mappings channel: 'official', version: '1.18.2'
+    mappings channel: 'parchment', version: '2022.09.04-1.18.2'
 
     // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
@@ -134,6 +137,9 @@ repositories {
     maven {
         url 'https://www.cursemaven.com'
     }
+    maven {
+        url "https://maven.theillusivec4.top/"
+    }
 }
 
 dependencies {
@@ -141,6 +147,13 @@ dependencies {
 
     implementation fg.deobf("curse.maven:tetra-289712:3844400")
     implementation fg.deobf("curse.maven:mutil-351914:3788376")
+
+    //temp
+    /*implementation fg.deobf("curse.maven:artifacts-312353:3984105")
+    implementation fg.deobf("curse.maven:expandability-465066:3678612")*/
+
+    implementation fg.deobf("top.theillusivec4.curios:curios-forge:1.18.2-5.0.7.0")
+    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.18.2-5.0.7.0:api")
 
     //runtimeOnly(fg.deobf("curse.maven:Jei-238222:3940240"))
 
