@@ -32,7 +32,7 @@ public class FreezingEffect {
 
     public static void init(){
         final IStatGetter effectStatGetter = new StatGetterEffectLevel(freezing, 1);
-        final GuiStatBar effectBar = new GuiStatBar(0, 0, barLength, "tetrutils.effect.freezing.name", 0, 10, false, effectStatGetter, LabelGetterBasic.decimalLabel,
+        final GuiStatBar effectBar = new GuiStatBar(0, 0, barLength, "tetrutils.effect.freezing.name", 0, 30, false, effectStatGetter, LabelGetterBasic.decimalLabel,
                 new TooltipGetterDecimal("tetrutils.effect.freezing.tooltip", effectStatGetter));
         WorkbenchStatsGui.addBar(effectBar);
         HoloStatsGui.addBar(effectBar);

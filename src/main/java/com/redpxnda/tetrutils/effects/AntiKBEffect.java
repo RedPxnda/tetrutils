@@ -13,10 +13,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import se.mickelus.tetra.blocks.workbench.gui.WorkbenchStatsGui;
 import se.mickelus.tetra.effect.ItemEffect;
 import se.mickelus.tetra.gui.stats.bar.GuiStatBar;
-import se.mickelus.tetra.gui.stats.getter.IStatGetter;
-import se.mickelus.tetra.gui.stats.getter.LabelGetterBasic;
-import se.mickelus.tetra.gui.stats.getter.StatGetterEffectLevel;
-import se.mickelus.tetra.gui.stats.getter.TooltipGetterDecimal;
+import se.mickelus.tetra.gui.stats.getter.*;
 import se.mickelus.tetra.items.modular.ModularItem;
 import se.mickelus.tetra.items.modular.impl.holo.gui.craft.HoloStatsGui;
 
@@ -26,15 +23,15 @@ public class AntiKBEffect {
     private static final ItemEffect antikb = ItemEffect.get("tetrutils:kb_reduction");
 
     public static void init(){
-        final IStatGetter effectStatGetter = new StatGetterEffectLevel(antikb, 1);
-        final GuiStatBar effectBar = new GuiStatBar(0, 0, barLength, "tetrutils.effect.anti_kb.name", 0, 10, false, effectStatGetter, LabelGetterBasic.decimalLabel,
-                new TooltipGetterDecimal("tetrutils.effect.anti_kb.tooltip", effectStatGetter));
+        final IStatGetter effectStatGetter = new StatGetterEffectLevel(antikb, 5);
+        final GuiStatBar effectBar = new GuiStatBar(0, 0, barLength, "tetrutils.effect.anti_kb.name", 0, 100, false, effectStatGetter, LabelGetterBasic.percentageLabel,
+                new TooltipGetterPercentage("tetrutils.effect.anti_kb.tooltip", effectStatGetter));
         WorkbenchStatsGui.addBar(effectBar);
         HoloStatsGui.addBar(effectBar);
     }
 
     @SubscribeEvent
-    public void onLivingDamage(LivingHurtEvent event) {
+    public void onLivingDamage(LivingAttackEvent event) {
         LivingEntity defender = event.getEntityLiving();
         Entity eAttacker = event.getSource().getEntity();
         if (eAttacker instanceof LivingEntity attacker) {
@@ -44,7 +41,7 @@ public class AntiKBEffect {
 
                 int level = item.getEffectLevel(heldStack, antikb);
                 if (level > 0) {
-                    defender.addEffect(new MobEffectInstance(PotionEffects.ANTIKB.get(), 2, level, false, false, false));
+                    defender.addEffect(new MobEffectInstance(PotionEffects.ANTIKB.get(), 5, level, false, false, false));
                 }
             }
         }

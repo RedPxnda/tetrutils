@@ -32,6 +32,7 @@ public class Tetrutils {
 
     public Tetrutils() {
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
+
         // Register the setup method for modloading
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         // Register the enqueueIMC method for modloading
@@ -54,13 +55,5 @@ public class Tetrutils {
         LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
 
         event.enqueueWork(Packets::init);
-    }
-    @SubscribeEvent
-    public static void clientSetup(FMLClientSetupEvent event) {
-        event.enqueueWork(() -> {
-            FrenzyEffect.init();
-            FreezingEffect.init();
-            AntiKBEffect.init();
-        });
     }
 }
