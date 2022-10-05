@@ -11,19 +11,31 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import se.mickelus.tetra.blocks.workbench.gui.WorkbenchStatsGui;
 import se.mickelus.tetra.effect.ItemEffect;
+import se.mickelus.tetra.gui.stats.bar.GuiStatBar;
+import se.mickelus.tetra.gui.stats.getter.IStatGetter;
+import se.mickelus.tetra.gui.stats.getter.LabelGetterBasic;
+import se.mickelus.tetra.gui.stats.getter.StatGetterEffectLevel;
+import se.mickelus.tetra.gui.stats.getter.TooltipGetterDecimal;
 import se.mickelus.tetra.items.modular.ModularItem;
+import se.mickelus.tetra.items.modular.impl.holo.gui.craft.HoloStatsGui;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
 
+import static se.mickelus.tetra.gui.stats.StatsHelper.barLength;
+
 public class FreezingEffect {
     private static final ItemEffect freezing = ItemEffect.get("tetrutils:freezing");
 
-    public MobEffectInstance getPotionEffect(ArrayList<MobEffectInstance> effects, MobEffect effectType) {
-        for (var effect : effects) if (effect.getEffect().equals(effectType)) return effect;
-        return null;
+    public static void init(){
+        final IStatGetter effectStatGetter = new StatGetterEffectLevel(freezing, 1);
+        final GuiStatBar effectBar = new GuiStatBar(0, 0, barLength, "tetrutils.effect.freezing.name", 0, 10, false, effectStatGetter, LabelGetterBasic.decimalLabel,
+                new TooltipGetterDecimal("tetrutils.effect.freezing.tooltip", effectStatGetter));
+        WorkbenchStatsGui.addBar(effectBar);
+        HoloStatsGui.addBar(effectBar);
     }
 
     @SubscribeEvent
@@ -40,7 +52,7 @@ public class FreezingEffect {
                 Collection<MobEffectInstance> cEffects = defender.getActiveEffects(); // getting player's effects
                 ArrayList<MobEffectInstance> effects = new ArrayList<>(cEffects);
 
-                MobEffectInstance effect = getPotionEffect(effects, PotionEffects.FREEZING.get());
+                MobEffectInstance effect = PotionEffects.getPotionEffect(effects, PotionEffects.FREEZING.get());
 
                 int amplifier = effect != null ? effect.getAmplifier() : -1;
                 int duration =  effect != null ? effect.getDuration() : -1;

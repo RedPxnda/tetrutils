@@ -11,7 +11,10 @@ import com.redpxnda.tetrutils.schematic.requirement.CurioRequirement;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
@@ -41,7 +44,8 @@ public class Tetrutils {
         MinecraftForge.EVENT_BUS.register(new FrenzyEffect());
 
         CraftingRequirementDeserializer.registerSupplier("tetrutils:advancement", AdvancementRequirement.class);
-        CraftingRequirementDeserializer.registerSupplier("tetrutils:curio", CurioRequirement.class);
+        if(ModList.get().isLoaded("curios"))
+            CraftingRequirementDeserializer.registerSupplier("tetrutils:curio", CurioRequirement.class);
     }
 
     private void setup(final FMLCommonSetupEvent event) {
@@ -50,5 +54,13 @@ public class Tetrutils {
         LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
 
         event.enqueueWork(Packets::init);
+    }
+    @SubscribeEvent
+    public static void clientSetup(FMLClientSetupEvent event) {
+        event.enqueueWork(() -> {
+            FrenzyEffect.init();
+            FreezingEffect.init();
+            AntiKBEffect.init();
+        });
     }
 }

@@ -1,0 +1,12 @@
+{
+  "effect.tetrutils.frenzy": "Frenzy",
+  "effect.tetrutils.freezing": "Frostbite",
+  "effect.tetrutils.kb_res": "KB Resistance",
+
+  "tetrutils.effect.freezing.name": "Freezing",
+  "tetrutils.effect.freezing.tooltip": "Applies a stacking freezing effect for §e%s",
+  "tetrutils.effect.anti_kb.name": "KB Reduction",
+  "tetrutils.effect.anti_kb.tooltip": "Decreases attack knockback by §e%s",
+  "tetrutils.effect.frenzy.name": "Frenzy",
+  "tetrutils.effect.frenzy.tooltip": "Consecutive attacks increase damage by §e%s"
+}

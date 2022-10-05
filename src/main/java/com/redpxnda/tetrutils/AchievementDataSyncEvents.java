@@ -6,6 +6,7 @@ import net.minecraft.advancements.Advancement;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.player.AdvancementEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 import java.util.ArrayList;
@@ -26,6 +27,13 @@ public class AchievementDataSyncEvents {
 
     @SubscribeEvent
     public void onPlayerAchievement(AdvancementEvent event) {
+        if (event.getPlayer() instanceof ServerPlayer player) {
+            ArrayList<String> achievements = getCompletedAdvancements(player);
+            Packets.sendToPlayer(new SyncAchievementsToClientPacket(achievements), player);
+        }
+    }
+    @SubscribeEvent
+    public void onPlayerDeath(PlayerEvent.PlayerRespawnEvent event) {
         if (event.getPlayer() instanceof ServerPlayer player) {
             ArrayList<String> achievements = getCompletedAdvancements(player);
             Packets.sendToPlayer(new SyncAchievementsToClientPacket(achievements), player);
