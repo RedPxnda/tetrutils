@@ -5,6 +5,7 @@ import com.redpxnda.tetrutils.effects.AntiKBEffect;
 import com.redpxnda.tetrutils.effects.FreezingEffect;
 import com.redpxnda.tetrutils.effects.FrenzyEffect;
 import com.redpxnda.tetrutils.effects.potion.PotionEffects;
+import com.redpxnda.tetrutils.modular.Registry;
 import com.redpxnda.tetrutils.packet.Packets;
 import com.redpxnda.tetrutils.schematic.requirement.AdvancementRequirement;
 import com.redpxnda.tetrutils.schematic.requirement.CurioRequirement;
@@ -45,8 +46,11 @@ public class Tetrutils {
         MinecraftForge.EVENT_BUS.register(new FrenzyEffect());
 
         CraftingRequirementDeserializer.registerSupplier("tetrutils:advancement", AdvancementRequirement.class);
-        if(ModList.get().isLoaded("curios"))
+        if(ModList.get().isLoaded("curios")) {
             CraftingRequirementDeserializer.registerSupplier("tetrutils:curio", CurioRequirement.class);
+
+            Registry.init(FMLJavaModLoadingContext.get().getModEventBus());
+        }
     }
 
     private void setup(final FMLCommonSetupEvent event) {
