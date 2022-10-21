@@ -1,0 +1,48 @@
+{
+    "replace": true,
+    "type": "tetra:basic_major_module",
+    "slots": [
+        "gauntlet/base"
+    ],
+    "improvements": [
+        "tetra:shared/"
+    ],
+    "variants": [
+        {
+            "materials": [ "tetra:wood/", "tetra:metal/", "tetra:bone/", "tetra:misc/vent_plate" ],
+            "key": "buckler/",
+            "attributes": {
+                "generic.armor_toughness": 0.5
+            },
+            "aspects": {
+                "bluntWeapon": 1,
+                "breakable": 2
+            },
+            "extract": {
+                "primaryAttributes": {
+                    "generic.armor_toughness": 0.4
+                },
+                "secondaryAttributes": {
+                    "generic.armor_toughness": 0.3
+                },
+                "tertiaryAttributes": {
+                    "generic.armor_toughness": 0.2
+                },
+                "durability": 0.8,
+                "integrity": -1,
+                "magicCapacity": 1,
+                "glyph": {
+                    "textureX": 48,
+                    "textureY": 48
+                },
+                "availableTextures": [ "wooden", "metal", "bone", "vent" ],
+                "models": [
+                    {
+                        "type": "tetra:plate/buckler",
+                        "location": "tetra:items/module/shield/base/buckler/"
+                    }
+                ]
+            }
+        }
+    ]
+}

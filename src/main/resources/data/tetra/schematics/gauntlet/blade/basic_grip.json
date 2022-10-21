@@ -1,0 +1,19 @@
+{
+    "replace": true,
+    "slots": [
+        "gauntlet/blade"
+    ],
+    "materialSlotCount": 1,
+    "displayType": "major",
+    "glyph": {
+        "textureX": 16,
+        "textureY": 48
+    },
+    "outcomes": [
+        {
+            "materials": [ "tetra:wood/", "tetra:metal/", "tetra:bone/", "tetra:rods/" ],
+            "moduleKey": "gauntlet/basic_grip",
+            "moduleVariant": "basic_grip/"
+        }
+    ]
+}

@@ -1,0 +1,24 @@
+{
+    "replace": true,
+    "slots": [
+        "gauntlet/boss"
+    ],
+    "materialSlotCount": 1,
+    "displayType": "minor",
+    "glyph": {
+        "textureX": 96,
+        "textureY": 16
+    },
+    "translation": {
+        "durability": 1,
+        "integrity": -2
+    },
+    "outcomes": [
+        {
+            "materials": [ "tetra:metal/" ],
+            "moduleKey": "gauntlet/sturdy_boss",
+            "toolOffset": 1,
+            "moduleVariant": "sturdy_boss/"
+        }
+    ]
+}

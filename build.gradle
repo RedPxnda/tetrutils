@@ -143,9 +143,9 @@ repositories {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.18.2-40.1.0'
+    minecraft 'net.minecraftforge:forge:1.18.2-40.1.80'
 
-    implementation fg.deobf("curse.maven:tetra-289712:3844400")
+    implementation fg.deobf("curse.maven:tetra-289712:4029100")
     implementation fg.deobf("curse.maven:mutil-351914:3788376")
 
     //temp

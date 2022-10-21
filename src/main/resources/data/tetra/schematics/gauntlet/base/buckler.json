@@ -1,0 +1,30 @@
+{
+    "replace": true,
+    "slots": [
+        "gauntlet/base"
+    ],
+    "materialSlotCount": 1,
+    "displayType": "major",
+    "glyph": {
+        "textureX": 48,
+        "textureY": 48
+    },
+    "translation": {
+        "primaryAttributes": {
+            "generic.armor_toughness": 3
+        },
+        "secondaryAttributes": {
+            "generic.armor_toughness": 2
+        },
+        "durability": 3,
+        "integrity": -3,
+        "magicCapacity": 3
+    },
+    "outcomes": [
+        {
+            "materials": [ "tetra:wood/", "tetra:metal/", "tetra:bone/", "tetra:misc/vent_plate" ],
+            "moduleKey": "gauntlet/buckler",
+            "moduleVariant": "buckler/"
+        }
+    ]
+}

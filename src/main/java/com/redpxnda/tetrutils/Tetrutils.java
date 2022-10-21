@@ -1,9 +1,7 @@
 package com.redpxnda.tetrutils;
 
 import com.mojang.logging.LogUtils;
-import com.redpxnda.tetrutils.effects.AntiKBEffect;
-import com.redpxnda.tetrutils.effects.FreezingEffect;
-import com.redpxnda.tetrutils.effects.FrenzyEffect;
+import com.redpxnda.tetrutils.effects.*;
 import com.redpxnda.tetrutils.effects.potion.PotionEffects;
 import com.redpxnda.tetrutils.modular.Registry;
 import com.redpxnda.tetrutils.packet.Packets;
@@ -44,6 +42,8 @@ public class Tetrutils {
         MinecraftForge.EVENT_BUS.register(new FreezingEffect());
         MinecraftForge.EVENT_BUS.register(new AntiKBEffect());
         MinecraftForge.EVENT_BUS.register(new FrenzyEffect());
+        MinecraftForge.EVENT_BUS.register(new WisdomEffect());
+        MinecraftForge.EVENT_BUS.register(new PiercingEffect());
 
         CraftingRequirementDeserializer.registerSupplier("tetrutils:advancement", AdvancementRequirement.class);
         if(ModList.get().isLoaded("curios")) {

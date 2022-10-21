@@ -48,9 +48,6 @@ public class ModularNecklace extends ModularItem implements ICurio {
         return Collections.emptyList();
     }
 
-    @ObjectHolder("tetrutils:" + identifier)
-    public static se.mickelus.tetra.items.modular.impl.ModularDoubleHeadedItem instance;
-
     @Override
     public String[] getMajorModuleKeys() {
         return this.majorModuleKeys;

@@ -8,5 +8,7 @@
   "tetrutils.effect.anti_kb.name": "KB Reduction",
   "tetrutils.effect.anti_kb.tooltip": "Knockback decreased by §e%s",
   "tetrutils.effect.frenzy.name": "Frenzy",
-  "tetrutils.effect.frenzy.tooltip": "Consecutive attacks increase damage by §e%s"
+  "tetrutils.effect.frenzy.tooltip": "Consecutive attacks increase damage by §e%s",
+  "tetrutils.effect.wisdom.name": "Wisdom",
+  "tetrutils.effect.wisdom.tooltip": "Multiplies xp dropped by §e%s"
 }

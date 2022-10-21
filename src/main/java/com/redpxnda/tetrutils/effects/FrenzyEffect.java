@@ -73,7 +73,6 @@ public class FrenzyEffect {
                 }
                 float damage = event.getAmount();
                 event.setAmount(damage + (float) amplifier*level);
-                System.out.println(event.getAmount());
                 ServerLevel serverLevel = (ServerLevel) defender.getLevel();
                 serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, Blocks.NETHER_WART_BLOCK.defaultBlockState()), defender.getX(), defender.getY(), defender.getZ(), amplifier*20, 0.5,0.5,0.5,0.03);
 
