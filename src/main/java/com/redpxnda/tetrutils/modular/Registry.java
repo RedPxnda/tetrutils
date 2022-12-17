@@ -16,8 +16,7 @@ public class Registry {
     public static final RegistryObject<Item> MODULAR_GAUNTLET = ITEMS.register("modular_gauntlet", ModularGauntlet::new);
 
     public static void init(IEventBus bus){
-        System.out.println("INIT REGISTRY!");
         bus.register(Registry.class);
-        ITEMS.register(bus);
+        //ITEMS.register(bus);
     }
 }

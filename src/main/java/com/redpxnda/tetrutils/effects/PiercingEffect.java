@@ -41,7 +41,7 @@ public class PiercingEffect {
         HoloStatsGui.addBar(effectBar);
     }
 
-    @SubscribeEvent
+    //@SubscribeEvent
     public void onEntityDamage(LivingDamageEvent event) {
         //event.getEntityLiving().getLevel().getEntities(null, AABB.of(new BoundingBox()));
 

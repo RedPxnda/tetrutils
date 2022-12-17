@@ -3,6 +3,7 @@ package com.redpxnda.tetrutils.modular.gauntlet;
 import com.google.common.collect.Multimap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
+import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -15,20 +16,23 @@ import net.minecraftforge.common.util.NonNullLazy;
 import se.mickelus.mutil.network.PacketHandler;
 import se.mickelus.tetra.data.DataManager;
 import se.mickelus.tetra.items.modular.ItemModularHandheld;
+import se.mickelus.tetra.items.modular.impl.BlockProgressOverlay;
 import se.mickelus.tetra.items.modular.impl.shield.ModularShieldRenderer;
 import se.mickelus.tetra.module.SchematicRegistry;
 import se.mickelus.tetra.module.schematic.RemoveSchematic;
 import se.mickelus.tetra.module.schematic.RepairSchematic;
 import se.mickelus.tetra.properties.AttributeHelper;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.function.Consumer;
 
+@ParametersAreNonnullByDefault
 public class ModularGauntlet extends ItemModularHandheld {
     public final static String baseKey = "gauntlet/base";
     public final static String bladeKey = "gauntlet/blade";
     public final static String bossKey = "gauntlet/boss";
 
-    public static final String identifier = "modular_shield";
+    public static final String identifier = "modular_gauntlet";
 
     public ModularGauntlet() {
         super(new Properties()
