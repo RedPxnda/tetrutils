@@ -12,6 +12,8 @@ import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import se.mickelus.tetra.blocks.workbench.gui.WorkbenchStatsGui;
@@ -33,6 +35,7 @@ import static se.mickelus.tetra.gui.stats.StatsHelper.barLength;
 public class PiercingEffect {
     private static final ItemEffect piercing = ItemEffect.get("tetrutils:piercing_attack");
 
+    @OnlyIn(Dist.CLIENT)
     public static void init(){
         final IStatGetter effectStatGetter = new StatGetterEffectLevel(piercing, 1);
         final GuiStatBar effectBar = new GuiStatBar(0, 0, barLength, "tetrutils.effect.piercing.name", 0, 30, false, effectStatGetter, LabelGetterBasic.decimalLabel,

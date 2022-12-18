@@ -2,6 +2,8 @@ package com.redpxnda.tetrutils.effects;
 
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import se.mickelus.tetra.blocks.workbench.gui.WorkbenchStatsGui;
@@ -20,6 +22,7 @@ import static se.mickelus.tetra.gui.stats.StatsHelper.barLength;
 public class WisdomEffect {
     private static final ItemEffect wisdom = ItemEffect.get("tetrutils:wisdom");
 
+    @OnlyIn(Dist.CLIENT)
     public static void init(){
         final IStatGetter effectStatGetter = new StatGetterEffectLevel(wisdom, 1);
         final GuiStatBar effectBar = new GuiStatBar(0, 0, barLength, "tetrutils.effect.wisdom.name", 0, 30, false, effectStatGetter, LabelGetterBasic.decimalLabel,

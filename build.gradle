@@ -22,7 +22,7 @@ apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
 group = 'com.redpxnda'
-version = '1.0-SNAPSHOT'
+version = '1.1-BETA'
 
 java {
     archivesBaseName = 'tetrutils'
@@ -149,8 +149,8 @@ dependencies {
     implementation fg.deobf("curse.maven:mutil-351914:3788376")
 
     //temp
-    /*implementation fg.deobf("curse.maven:artifacts-312353:3984105")
-    implementation fg.deobf("curse.maven:expandability-465066:3678612")*/
+    //runtimeOnly(fg.deobf("curse.maven:ars-nouveau-401955:4052851"))
+    //runtimeOnly(fg.deobf("curse.maven:patchouli-306770:3846086"))
 
     implementation fg.deobf("top.theillusivec4.curios:curios-forge:1.18.2-5.0.7.0")
     compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.18.2-5.0.7.0:api")
