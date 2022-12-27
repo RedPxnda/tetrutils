@@ -10,5 +10,7 @@
   "tetrutils.effect.frenzy.name": "Frenzy",
   "tetrutils.effect.frenzy.tooltip": "Consecutive attacks increase damage by §e%s",
   "tetrutils.effect.wisdom.name": "Wisdom",
-  "tetrutils.effect.wisdom.tooltip": "Multiplies xp dropped by §e%s"
+  "tetrutils.effect.wisdom.tooltip": "Multiplies xp dropped by §e%s",
+  "tetrutils.effect.tipped.name": "Tipped",
+  "tetrutils.effect.tipped.tooltip": "Applies the following effects when you hit a creature:"
 }

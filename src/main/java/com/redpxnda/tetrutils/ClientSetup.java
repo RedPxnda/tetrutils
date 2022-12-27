@@ -1,9 +1,6 @@
 package com.redpxnda.tetrutils;
 
-import com.redpxnda.tetrutils.effects.AntiKBEffect;
-import com.redpxnda.tetrutils.effects.FreezingEffect;
-import com.redpxnda.tetrutils.effects.FrenzyEffect;
-import com.redpxnda.tetrutils.effects.WisdomEffect;
+import com.redpxnda.tetrutils.effects.*;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -18,5 +15,6 @@ public class ClientSetup {
         FreezingEffect.init();
         AntiKBEffect.init();
         WisdomEffect.init();
+        MobEffectEffect.init();
     }
 }
