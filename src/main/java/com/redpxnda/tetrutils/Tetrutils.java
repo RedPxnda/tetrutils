@@ -44,6 +44,7 @@ public class Tetrutils {
         MinecraftForge.EVENT_BUS.register(new FrenzyEffect());
         MinecraftForge.EVENT_BUS.register(new WisdomEffect());
         MinecraftForge.EVENT_BUS.register(new PiercingEffect());
+        MinecraftForge.EVENT_BUS.register(new MobEffectEffect());
 
         CraftingRequirementDeserializer.registerSupplier("tetrutils:advancement", AdvancementRequirement.class);
         if(ModList.get().isLoaded("curios")) {
