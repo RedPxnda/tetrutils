@@ -54,13 +54,17 @@ public class MobEffectEffect {
                     String id = itemEffect.getKey();
                     if(id.startsWith("tetrutils:mob_effect")) {
                         String[] sections = itemEffect.getKey().split("-");
-                        String effect = (sections.length > 2) ? sections[2] : sections[1];
-                        String chance = (sections.length > 2) ? sections[1] : "1.0";
+                        String[] values = sections[2].split(",");
+                        String effect = sections[1];
+                        String chanceStr = (values.length > 2) ? values[2] : "1.0";
+                        String lvlStr = values[0];
+                        String effStr = values[1];
+                        double chance = Double.parseDouble(chanceStr);
+                        int lvl = Integer.parseInt(lvlStr);
+                        int eff = Integer.parseInt(effStr);
                         Random rand = new Random();
                         int val = rand.nextInt(100) + 1;
-                        if (Double.parseDouble(chance)*100>=val) {
-                            int lvl = item.getEffectLevel(heldStack, itemEffect);
-                            int eff = (int) item.getEffectEfficiency(heldStack, itemEffect);
+                        if (chance*100>=val) {
                             Optional<Holder<MobEffect>> effectOptional = ForgeRegistries.MOB_EFFECTS.getHolder(new ResourceLocation(effect));
                             effectOptional.ifPresent(e -> {
                                 MobEffect mobEffect = e.value();
@@ -73,11 +77,11 @@ public class MobEffectEffect {
                                     int amplifier = potionEffect != null ? potionEffect.getAmplifier() : -1;
                                     int duration =  potionEffect != null ? potionEffect.getDuration() : -1;
 
-                                    if (defender.hasEffect(mobEffect) && amplifier < lvl-1) { // stacking the effect
-                                        if (potionEffect!=null) potionEffect.update(new MobEffectInstance(mobEffect, duration + eff, amplifier + 1));
-                                    }
-
-                                    if (!defender.hasEffect(mobEffect)) {// giving the effect initially
+                                    if (defender.hasEffect(mobEffect)) { // stacking the effect
+                                        int dur = (id.startsWith("tetrutils:mob_effect_stacking_basic")) ? duration : eff;
+                                        int amp = (amplifier < lvl-1) ? amplifier+1 : amplifier;
+                                        if (potionEffect!=null) potionEffect.update(new MobEffectInstance(mobEffect, dur, amp));
+                                    } else { // giving the effect initially
                                         defender.addEffect(new MobEffectInstance(mobEffect, eff, 0));
                                     }
                                 } else {

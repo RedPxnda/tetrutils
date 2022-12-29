@@ -17,7 +17,10 @@ public class StackingMaterialOutcome implements CraftingEffectOutcome {
     @Override
     public boolean apply(ItemStack itemStack, String slot, boolean isReplacing, Player player, ItemStack[] preMaterials, Map<ToolAction, Integer> tools,
                          Level level, BlockPos pos, BlockState blockState, boolean consumeResources, ItemStack[] postMaterials) {
-        //if (!preMaterials[0].isEmpty() && )
+        if (consumeResources && !preMaterials[0].isEmpty()) {
+            preMaterials[0].setCount(preMaterials[0].getCount()*itemStack.getCount());
+            return true;
+        }
         return false;
     }
 }

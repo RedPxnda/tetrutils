@@ -1,6 +1,8 @@
 package com.redpxnda.tetrutils;
 
+import com.mojang.datafixers.types.templates.Sum;
 import com.mojang.logging.LogUtils;
+import com.redpxnda.tetrutils.craftingeffect.outcome.StackingMaterialOutcome;
 import com.redpxnda.tetrutils.effects.*;
 import com.redpxnda.tetrutils.effects.potion.PotionEffects;
 import com.redpxnda.tetrutils.modular.Registry;
@@ -19,6 +21,8 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
 
 import java.util.stream.Collectors;
+
+import se.mickelus.tetra.craftingeffect.CraftingEffectRegistry;
 import se.mickelus.tetra.module.schematic.requirement.CraftingRequirementDeserializer;
 
 // The value here should match an entry in the META-INF/mods.toml file
@@ -45,6 +49,7 @@ public class Tetrutils {
         MinecraftForge.EVENT_BUS.register(new WisdomEffect());
         MinecraftForge.EVENT_BUS.register(new PiercingEffect());
         MinecraftForge.EVENT_BUS.register(new MobEffectEffect());
+        MinecraftForge.EVENT_BUS.register(new SummonEntityEffect());
 
         CraftingRequirementDeserializer.registerSupplier("tetrutils:advancement", AdvancementRequirement.class);
         if(ModList.get().isLoaded("curios")) {
@@ -52,6 +57,8 @@ public class Tetrutils {
 
             Registry.init(FMLJavaModLoadingContext.get().getModEventBus());
         }
+
+        //CraftingEffectRegistry.registerEffectType("tetra:test", StackingMaterialOutcome.class);
     }
 
     private void setup(final FMLCommonSetupEvent event) {
